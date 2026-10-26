@@ -246,7 +246,7 @@ Reading the comparison fairly: for the first ≈ 40 iterations both optimisers d
 * unconstrained MPC coincides with the LQR;
 * the MPC respects its torque limits and the QP solver never falls back.
 
-The numbers above are reproducible: Task 1 gives identical iteration logs on different machines; for Task 2 the iteration count varies by a few (e.g. 242 on one machine, 242 on another) because of floating-point differences in the BLAS/LAPACK libraries, with the same final cost (19 614.48).
+The numbers above are reproducible: Task 1 gives identical iteration logs on different machines; for Task 2 the iteration count varies by a few (e.g. 242 on one machine, 247 on another) because of floating-point differences in the BLAS/LAPACK libraries, with the same final cost (19 614.48).
 
 ## 12. Limitations
 
