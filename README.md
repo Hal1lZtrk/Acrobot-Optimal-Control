@@ -36,7 +36,7 @@ All numbers are produced by the `run_taskN.py` scripts and stored in `results/*.
 | | Result |
 |---|---|
 | Task 1, transition θ₁ = −15° → +15° | converged in **6** iterations, ‖Δu‖ = 8·10⁻¹², cost 1 881 → 10.34 |
-| Task 2, swing-up (θ₁: 0 → π, 15 s) | converged in **247** iterations (≈ 50 s), ‖Δu‖ = 3·10⁻⁷, cost 76 838 → **19 614**; final state θ₁ = π − 6.5·10⁻⁴ rad, θ₂ ≈ −2·10⁻⁴ rad, velocities ≈ 10⁻³ rad/s; peak torque **36.6 Nm** |
+| Task 2, swing-up (θ₁: 0 → π, 15 s) | converged in **242** iterations (≈ 50 s), ‖Δu‖ = 3·10⁻⁷, cost 76 838 → **19 614**; final state θ₁ = π − 6.5·10⁻⁴ rad, θ₂ ≈ −2·10⁻⁴ rad, velocities ≈ 10⁻³ rad/s; peak torque **36.6 Nm** |
 | Task 3, LQR from 3 perturbed starts | max \|e_θ₁\| = 0.10 / 0.17 / 0.21 rad; final ‖e‖ ≤ 4·10⁻⁵ |
 | Task 4, MPC (horizon 20 samples = 0.2 s) | same errors as the LQR (trajectories differ by ≤ 3.4·10⁻⁶) |
 | Task 4, torque limit ±30 Nm | respected; max \|e_θ₁\| = 0.10 rad, final ‖e‖ = 1.7·10⁻⁶ |
@@ -132,7 +132,7 @@ Weights: Q = diag(10, 10, 1, 1), R = 0.1, Q_T = diag(10⁴, 10⁴, 10³, 10³); 
 
 | quantity | value |
 |---|---|
-| iterations to ‖Δu‖ < 10⁻⁶ | 247 (162 of them needed backtracking, γ < 1) |
+| iterations to ‖Δu‖ < 10⁻⁶ | 242 (162 of them needed backtracking, γ < 1) |
 | cost | 76 838 → 19 614 |
 | final state | θ₁ = 3.1409 rad (π − 6.5·10⁻⁴), θ₂ = −2.2·10⁻⁴ rad, θ̇₁ = −1.5·10⁻³, θ̇₂ = −6.3·10⁻⁴ rad/s |
 | θ₁ within 0.1 rad of π from | t = 8.54 s |
@@ -140,7 +140,7 @@ Weights: Q = diag(10, 10, 1, 1), R = 0.1, Q_T = diag(10⁴, 10⁴, 10³, 10³); 
 | max \|θ₂\|, \|θ̇₁\|, \|θ̇₂\| | 2.52 rad, 4.20 rad/s, 6.24 rad/s |
 | control effort ∫τ² dt | 917 N²m²s |
 
-| iteration | 0 | 1 | 5 | 20 | 50 | 100 | 150 | 200 | 247 |
+| iteration | 0 | 1 | 5 | 20 | 50 | 100 | 150 | 200 | 242 |
 |---|---|---|---|---|---|---|---|---|---|
 | cost | 76 838 | 54 557 | 48 992 | 40 590 | 34 201 | 25 650 | 21 248 | 19 880 | 19 614 |
 
@@ -224,7 +224,7 @@ The original course code (flat scripts, open-loop line search `u + γΔu`, Gauss
 | | original course code | this repository |
 |---|---|---|
 | Newton variant | Gauss–Newton, open-loop step | full Newton (2nd derivatives of the dynamics), **closed-loop step** |
-| iterations | 80 (budget) | 247 (until ‖Δu‖ < 10⁻⁶) |
+| iterations | 80 (budget) | 242 (until ‖Δu‖ < 10⁻⁶) |
 | state at the end | not converged: ‖Δu‖ ≈ 25.6, step size ½ | converged: ‖Δu‖ = 3·10⁻⁷ |
 | cost J | 34 115 | **19 614** (−43 %) |
 | time | ≈ 2.5 min | ≈ 50 s |
@@ -246,7 +246,7 @@ Reading the comparison fairly: for the first ≈ 40 iterations both optimisers d
 * unconstrained MPC coincides with the LQR;
 * the MPC respects its torque limits and the QP solver never falls back.
 
-The numbers above are reproducible: Task 1 gives identical iteration logs on different machines; for Task 2 the iteration count varies by a few (e.g. 242 on one machine, 247 on another) because of floating-point differences in the BLAS/LAPACK libraries, with the same final cost (19 614.48).
+The numbers above are reproducible: Task 1 gives identical iteration logs on different machines; for Task 2 the iteration count varies by a few (e.g. 242 on one machine, 242 on another) because of floating-point differences in the BLAS/LAPACK libraries, with the same final cost (19 614.48).
 
 ## 12. Limitations
 
