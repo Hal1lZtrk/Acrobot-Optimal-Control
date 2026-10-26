@@ -31,7 +31,7 @@ optimiser until the swing-up problem actually converges. This document is the te
 
 ## 1. Summary of results
 
-All numbers are produced by `python run_all.py` and stored in `results/*.json`.
+All numbers are produced by the `run_taskN.py` scripts and stored in `results/*.json`.
 
 | | Result |
 |---|---|
@@ -268,7 +268,6 @@ python run_task2.py               # ≈ 1 min; caches results/swing_up_trajector
 python run_task3.py
 python run_task4.py
 python run_task5.py               # interactive animation (pygame)
-python run_all.py                 # everything in batch mode (no windows), regenerates results/
 python run_comparison.py          # figure of §10
 python -m pytest
 ```
@@ -288,7 +287,7 @@ acrobot/
   tracking.py      time-varying LQR and MPC (condensed QP, qpOASES)
   plotting.py      all figures        animation.py   GIF/MP4 and pygame viewer
   config.py        weights and settings   pipeline.py   shared helpers
-run_task1.py ... run_task5.py, run_all.py, run_comparison.py
+run_task1.py ... run_task5.py, run_comparison.py
 tests/             pytest suite
 docs/              baseline numbers of the original course code
 results/           figures, JSON summaries, cached swing-up, GIF/MP4
