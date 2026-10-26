@@ -87,12 +87,12 @@ $$\min_{u_0,\dots,u_{T-2}}\ \sum_{t=0}^{T-2}\tfrac12\|x_t-x^{\rm des}_t\|_Q^2+\t
 
 1. Roll out the current input, linearise along the trajectory, compute the cost gradient with the adjoint recursion.
 2. Solve the affine LQ problem of the Newton step with a backward Riccati recursion (DDP-style, including the second derivatives of the dynamics). This gives feedback gains $K_t$ and feed-forward terms $\sigma_t$. A Levenberg-type term μ is added to the Hessian in the input direction and increased automatically whenever the step is not a descent direction (it stays 0 in all runs reported here).
-3. **Armijo backtracking line search on the closed-loop update**
+**3. Armijo backtracking line search on the closed-loop update**
 
 $$u^{+}_t=u_t+K_t\,(x^{+}_t-x_t)+\gamma\,\sigma_t,\qquad x^{+}_{t+1}=f(x^{+}_t,u^{+}_t),$$
 
 with γ = 1, ½, ¼, … until $J^{+}\le J+c\,\gamma\,\nabla J^\top\Delta u$ (c = 10⁻⁴, β = ½). The feedback term keeps the new trajectory close to the point where the model was linearised, which is what makes the method work on a long, unstable swing-up. The plain open-loop update $u+\gamma\Delta u$ only admits tiny steps there.
-4. Stop when ‖Δu‖ < 10⁻⁶ (Δu is the open-loop descent direction obtained by simulating the linearised closed loop).
+**4. Stop** when ‖Δu‖ < 10⁻⁶ (Δu is the open-loop descent direction obtained by simulating the linearised closed loop).
 
 The initial guess is **zero torque** in all experiments ("worst-case" initialisation).
 
